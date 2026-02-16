@@ -1,29 +1,8 @@
 services:
-
-  db:
-    image: postgres:15
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: collabdb
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   app:
     build: .
-    restart: always
-    depends_on:
-      - db
-    env_file:
-      - .env
     ports:
       - "4000:4000"
-    volumes:
-      - .:/app
-    command: ["node", "src/server.js"] 
-
-volumes:
-  postgres_data:
+    env_file:
+      - .env
+    command: ["node", "src/server.js"]
